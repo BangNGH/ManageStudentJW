@@ -22,7 +22,7 @@ public class frmMain extends javax.swing.JFrame {
 
     public frmMain() {
         initComponents();
-
+        setLocationRelativeTo(null);
     }
 
     @SuppressWarnings("unchecked")
@@ -141,31 +141,32 @@ public class frmMain extends javax.swing.JFrame {
     }//GEN-LAST:event_txtMatKhauActionPerformed
 
     private void btnKetNoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKetNoiActionPerformed
-        
+
         try {
-            String sql = "select * from dbo.User_Account where taiKhoan=? and matKhau=?";
+            String sql = "DECLARE @iReturned bit EXEC usp_login @pr_username = '" + this.txtTaiKhoan.getText() + "', @pr_password ='" + this.txtMatKhau.getText() + "';";
+
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             connect = DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databaseName=DoAnLMT;user=sa;password=123");
 
             PreparedStatement ps = connect.prepareCall(sql);
-            ps.setString(1, txtTaiKhoan.getText());
-            ps.setString(2, txtMatKhau.getText());
+//            ps.setString(1, txtTaiKhoan.getText());
+//            ps.setString(2, txtMatKhau.getText());
 
             ResultSet rs = ps.executeQuery();
-            if(txtTaiKhoan.getText().equals("")||txtMatKhau.getText().equals("")){
-                JOptionPane.showConfirmDialog(this, "Chưa nhập user và pass");
-            }
-            else if (rs.next()) {
+            if (txtTaiKhoan.getText().equals("") || txtMatKhau.getText().equals("")) {
+                JOptionPane.showMessageDialog(null, "Chưa nhập user và pass");
+            } else if (rs.next()) {
                 AddStudents sv = new AddStudents();
                 sv.setVisible(true);
                 this.dispose();
-                JOptionPane.showMessageDialog(this, "Đăng nhập thành công");
-                
-            }
-            else{
-                    JOptionPane.showConfirmDialog(this, "Đăng nhập thất bại");
-            }
+                JOptionPane.showMessageDialog(null, "Đăng nhập thành công");
 
+            } else {
+                JOptionPane.showMessageDialog(null, "Đăng nhập thất bại");
+            }
+            rs.close();
+            ps.close();
+            connect.close();
         } catch (Exception e) {
             e.printStackTrace();
         }

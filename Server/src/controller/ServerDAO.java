@@ -21,8 +21,7 @@ public class ServerDAO {
 
     public ServerDAO() {
          try {
-           Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-           
+           Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");  
            connect = DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databaseName=DoAnLMT;user=sa;password=123");
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
@@ -39,11 +38,16 @@ public class ServerDAO {
             ps.setFloat(4, s.getDiemLy());
             ps.setFloat(5, s.getDiemHoa());
             ps.executeUpdate();
+           
+           ps.close();
+           connect.close();
             return true;
+            
         } catch (Exception e) {
             e.printStackTrace();
         }
     
      return false;   
     }
+
 }
