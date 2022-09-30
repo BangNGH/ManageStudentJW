@@ -5,6 +5,12 @@
  */
 package view;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -12,11 +18,11 @@ package view;
  */
 public class frmMain extends javax.swing.JFrame {
 
-    /**
-     * Creates new form server_form
-     */
+    private static Connection connect = null;
+
     public frmMain() {
         initComponents();
+
     }
 
     @SuppressWarnings("unchecked")
@@ -26,8 +32,8 @@ public class frmMain extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        txtDomain = new javax.swing.JTextField();
-        txtPort = new javax.swing.JTextField();
+        txtTaiKhoan = new javax.swing.JTextField();
+        txtMatKhau = new javax.swing.JTextField();
         btnThoat = new javax.swing.JButton();
         btnKetNoi = new javax.swing.JButton();
 
@@ -35,31 +41,27 @@ public class frmMain extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(0, 153, 255));
-        jLabel1.setText("Kết Nối Đến Sever");
+        jLabel1.setText("Đăng Nhập");
 
         jLabel2.setFont(new java.awt.Font("Times New Roman", 1, 15)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(51, 153, 255));
-        jLabel2.setText("Domain:");
+        jLabel2.setText("Tài khoản: ");
 
         jLabel3.setFont(new java.awt.Font("Times New Roman", 1, 15)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(51, 153, 255));
-        jLabel3.setText("Port:");
+        jLabel3.setText("Mật khẩu:");
 
-        txtDomain.setFont(new java.awt.Font("Tahoma", 2, 10)); // NOI18N
-        txtDomain.setForeground(new java.awt.Color(204, 204, 204));
-        txtDomain.setText("nhập vào địa chỉ");
-        txtDomain.addActionListener(new java.awt.event.ActionListener() {
+        txtTaiKhoan.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
+        txtTaiKhoan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtDomainActionPerformed(evt);
+                txtTaiKhoanActionPerformed(evt);
             }
         });
 
-        txtPort.setFont(new java.awt.Font("Tahoma", 2, 10)); // NOI18N
-        txtPort.setForeground(new java.awt.Color(204, 204, 204));
-        txtPort.setText("nhập vào cổng kết nối");
-        txtPort.addActionListener(new java.awt.event.ActionListener() {
+        txtMatKhau.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
+        txtMatKhau.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtPortActionPerformed(evt);
+                txtMatKhauActionPerformed(evt);
             }
         });
 
@@ -86,37 +88,40 @@ public class frmMain extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(63, 63, 63)
+                        .addGap(46, 46, 46)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(29, 29, 29)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtDomain, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtPort, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(txtTaiKhoan, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtMatKhau, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(124, 124, 124)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(btnKetNoi)
-                                .addGap(45, 45, 45)
-                                .addComponent(btnThoat))
-                            .addComponent(jLabel1))))
-                .addContainerGap(79, Short.MAX_VALUE))
+                        .addComponent(btnKetNoi)
+                        .addGap(45, 45, 45)
+                        .addComponent(btnThoat)))
+                .addContainerGap(85, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(144, 144, 144))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(37, 37, 37)
+                .addGap(22, 22, 22)
                 .addComponent(jLabel1)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(txtDomain, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(24, 24, 24)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(txtPort, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(33, 33, 33)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addGap(26, 26, 26)
+                        .addComponent(jLabel3))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(txtTaiKhoan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(24, 24, 24)
+                        .addComponent(txtMatKhau, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnThoat)
@@ -127,22 +132,49 @@ public class frmMain extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtDomainActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDomainActionPerformed
+    private void txtTaiKhoanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTaiKhoanActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtDomainActionPerformed
+    }//GEN-LAST:event_txtTaiKhoanActionPerformed
 
-    private void txtPortActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPortActionPerformed
+    private void txtMatKhauActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMatKhauActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtPortActionPerformed
+    }//GEN-LAST:event_txtMatKhauActionPerformed
 
     private void btnKetNoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKetNoiActionPerformed
-       AddStudents sv = new AddStudents();
-       sv.setVisible(true);
-       this.dispose();
+        
+        try {
+            String sql = "select * from dbo.User_Account where taiKhoan=? and matKhau=?";
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            connect = DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databaseName=DoAnLMT;user=sa;password=123");
+
+            PreparedStatement ps = connect.prepareCall(sql);
+            ps.setString(1, txtTaiKhoan.getText());
+            ps.setString(2, txtMatKhau.getText());
+
+            ResultSet rs = ps.executeQuery();
+            if(txtTaiKhoan.getText().equals("")||txtMatKhau.getText().equals("")){
+                JOptionPane.showConfirmDialog(this, "Chưa nhập user và pass");
+            }
+            else if (rs.next()) {
+                AddStudents sv = new AddStudents();
+                sv.setVisible(true);
+                this.dispose();
+                JOptionPane.showMessageDialog(this, "Đăng nhập thành công");
+                
+            }
+            else{
+                    JOptionPane.showConfirmDialog(this, "Đăng nhập thất bại");
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
     }//GEN-LAST:event_btnKetNoiActionPerformed
 
     private void btnThoatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThoatActionPerformed
-         System.exit(0);
+        System.exit(0);
     }//GEN-LAST:event_btnThoatActionPerformed
 
     /**
@@ -180,7 +212,7 @@ public class frmMain extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JTextField txtDomain;
-    private javax.swing.JTextField txtPort;
+    private javax.swing.JTextField txtMatKhau;
+    private javax.swing.JTextField txtTaiKhoan;
     // End of variables declaration//GEN-END:variables
 }
