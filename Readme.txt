@@ -6,6 +6,7 @@ update: 1/10
 	+thực hiện add model Students cho Client và Server bằng cách clean and build project Entities sau đó add file Entities.jar vào libraries cho project client và server
 	+Run lần lượt file ServerRun và ClientRun để test bài
 
+<<<<<<< HEAD
 *LƯU Ý:
 	+không đổi tên biến/Folder/Class đã có sẳn trong SQL server và các project từ github 
 	+Không push các phần còn bug lên brach master	
@@ -18,3 +19,11 @@ update: 1/10
 	+Học cách cách sử dụng github và các câu lệch cơ bản dùng
 	+Chỉnh sửa readme file và push lên github để thử cách dùng git
 	+Push bài lên github phải commit message và note vào readme file
+=======
+ *Việc cần làm:
+	-Tạo và code form hoàn chỉnh form đăng ký
+	- Nhận dữ liệu từ client thực hiện mã hóa password bằng thuật toán DES sai đó lưu vào sql và nhận thông số từ giao diện để đọc giải mã dữ liệu, sau đó tính điểm trung bình của từng bạn và gửi về cho client.
+	-Tạo và code form môn học 
+	- Thay thế các câu lệch select form where = PROCERDUCE
+	
+>>>>>>> 2c9e244d0749ab7b93603ce11cf420a4e4f9ac49
