@@ -4,5 +4,5 @@ update: 30/9
 	tạo procdure đăng nhập
 
  *Việc cần làm: 
-	-Hiển thị kết quả server trả về gồm họ tên sinh viên, mã sinh viên và điểm trung bình của từng bạn lên màn hình
+
 	- Nhận dữ liệu từ client thực hiện mã hóa bằng thuật toán DES sai đó lưu vào sql và nhận thông số từ giao diện để đọc giải mã dữ liệu, sau đó tính điểm trung bình của từng bạn và gửi về cho client.
