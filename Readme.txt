@@ -7,7 +7,7 @@ update: 1/10
 	+Run lần lượt file ServerRun và ClientRun để test bài
 
 *LƯU Ý:
-	+không đổi tên biến/Folder/Class đã có sẳn trong SQL server và các project đã có 
+	+không đổi tên biến/Folder/Class đã có sẳn trong SQL server và các project từ github 
 	+Không push các phần còn bug lên brach master	
 	+Cấu hình tài khoản sa trong SQL server và dùng tài khoản và mk sa để đăng nhập
 	+Các class chứa dòng code sau: "Connection connect = DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databaseName=QLSV;user=sa;password=123");" 
