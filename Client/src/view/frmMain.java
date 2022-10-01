@@ -52,6 +52,7 @@ public class frmMain extends javax.swing.JFrame {
         jLabel3.setText("Mật khẩu:");
 
         txtTaiKhoan.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
+        txtTaiKhoan.setText("admin");
         txtTaiKhoan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtTaiKhoanActionPerformed(evt);
@@ -59,6 +60,7 @@ public class frmMain extends javax.swing.JFrame {
         });
 
         txtMatKhau.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
+        txtMatKhau.setText("123");
         txtMatKhau.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtMatKhauActionPerformed(evt);
@@ -146,11 +148,9 @@ public class frmMain extends javax.swing.JFrame {
             String sql = "DECLARE @iReturned bit EXEC usp_login @pr_username = '" + this.txtTaiKhoan.getText() + "', @pr_password ='" + this.txtMatKhau.getText() + "';";
 
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            connect = DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databaseName=DoAnLMT;user=sa;password=123");
+            connect = DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databaseName=QLSV;user=sa;password=123");
 
             PreparedStatement ps = connect.prepareCall(sql);
-//            ps.setString(1, txtTaiKhoan.getText());
-//            ps.setString(2, txtMatKhau.getText());
 
             ResultSet rs = ps.executeQuery();
             if (txtTaiKhoan.getText().equals("") || txtMatKhau.getText().equals("")) {

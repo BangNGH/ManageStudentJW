@@ -6,8 +6,11 @@
 package view;
 
 import controller.ClientCtr;
+import controller.ClientCtr;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -33,6 +36,14 @@ public class AddStudents extends javax.swing.JFrame implements ActionListener {
         btnThoat.addActionListener(this);
         initTable();
         loadInfoSinhVien();
+        ProcessCTR(false);
+    }
+
+    public void ProcessCTR(boolean b) {
+
+        this.btnXoa.setEnabled(b);
+        this.btnSua.setEnabled(b);
+        this.txtMSSV.getFocusListeners();
 
     }
 
@@ -59,6 +70,8 @@ public class AddStudents extends javax.swing.JFrame implements ActionListener {
         tblSV = new javax.swing.JTable();
         btnSua = new javax.swing.JButton();
         btnXoa = new javax.swing.JButton();
+        txtMaLop = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -88,7 +101,12 @@ public class AddStudents extends javax.swing.JFrame implements ActionListener {
 
         btnThem.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         btnThem.setForeground(new java.awt.Color(51, 51, 51));
-        btnThem.setText("Thêm mới");
+        btnThem.setText("Thêm");
+        btnThem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnThemActionPerformed(evt);
+            }
+        });
 
         btnReload.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         btnReload.setForeground(new java.awt.Color(51, 51, 51));
@@ -102,6 +120,11 @@ public class AddStudents extends javax.swing.JFrame implements ActionListener {
         btnThoat.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         btnThoat.setForeground(new java.awt.Color(51, 51, 51));
         btnThoat.setText("Thoát");
+        btnThoat.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnThoatActionPerformed(evt);
+            }
+        });
 
         txtMSSV.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         txtMSSV.setForeground(new java.awt.Color(0, 51, 51));
@@ -154,6 +177,13 @@ public class AddStudents extends javax.swing.JFrame implements ActionListener {
             }
         });
 
+        txtMaLop.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        txtMaLop.setForeground(new java.awt.Color(0, 51, 51));
+
+        jLabel7.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(0, 51, 51));
+        jLabel7.setText("Mã Lớp:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -161,12 +191,12 @@ public class AddStudents extends javax.swing.JFrame implements ActionListener {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jSeparator1))
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(29, 29, 29)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jLabel4)
                                     .addComponent(jLabel3)
@@ -179,29 +209,34 @@ public class AddStudents extends javax.swing.JFrame implements ActionListener {
                                     .addComponent(txtHoTen, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(txtDiemToan, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(txtMSSV, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtDiemHoa, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnThem)
-                                .addGap(36, 36, 36)
-                                .addComponent(btnReload)
-                                .addGap(39, 39, 39)
-                                .addComponent(btnThoat)
-                                .addGap(18, 18, 18)))
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 496, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(txtDiemHoa, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel7)
+                                .addGap(47, 47, 47)
+                                .addComponent(txtMaLop, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(32, 32, 32))
                     .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(btnXoa)
+                            .addComponent(btnThem))
+                        .addGap(77, 77, 77)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnReload)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(270, 270, 270)
-                                .addComponent(jLabel1))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(116, 116, 116)
-                                .addComponent(btnXoa)
-                                .addGap(33, 33, 33)
+                                .addGap(8, 8, 8)
                                 .addComponent(btnSua)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                        .addGap(44, 44, 44)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 496, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(btnThoat)
+                        .addGap(21, 21, 21))))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(294, 294, 294)
+                .addComponent(jLabel1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -211,10 +246,7 @@ public class AddStudents extends javax.swing.JFrame implements ActionListener {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 5, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(23, 23, 23)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel3)
@@ -235,16 +267,24 @@ public class AddStudents extends javax.swing.JFrame implements ActionListener {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
                             .addComponent(txtDiemHoa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(26, 26, 26)
+                        .addGap(21, 21, 21)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel7)
+                            .addComponent(txtMaLop, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnReload, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnThem)
-                            .addComponent(btnThoat))
-                        .addGap(18, 18, 18)
+                            .addComponent(btnThem))
+                        .addGap(29, 29, 29)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnSua)
                             .addComponent(btnXoa))
-                        .addGap(24, 24, 24))))
+                        .addGap(19, 19, 19))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnThoat)
+                        .addGap(32, 32, 32))))
         );
 
         pack();
@@ -256,68 +296,84 @@ public class AddStudents extends javax.swing.JFrame implements ActionListener {
         txtDiemToan.setText("");
         txtHoTen.setText("");
         txtMSSV.setText("");
+        txtMaLop.setText("");
+        this.btnThem.setEnabled(true);
+        ProcessCTR(false);
+
         loadInfoSinhVien();
     }//GEN-LAST:event_btnReloadActionPerformed
 
     private void tblSVMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblSVMouseClicked
+        ProcessCTR(true);
+        this.btnThem.setEnabled(false);
         int row = tblSV.getSelectedRow();
         if (row >= 0) {
             txtMSSV.setText(tblSV.getValueAt(row, 0).toString());
             txtHoTen.setText(tblSV.getValueAt(row, 1).toString());
-            txtDiemToan.setText(tblSV.getValueAt(row, 2).toString());
-            txtDiemLy.setText(tblSV.getValueAt(row, 3).toString());
-            txtDiemHoa.setText(tblSV.getValueAt(row, 4).toString());
+            txtDiemToan.setText(tblSV.getValueAt(row, 3).toString());
+            txtDiemLy.setText(tblSV.getValueAt(row, 4).toString());
+            txtDiemHoa.setText(tblSV.getValueAt(row, 5).toString());
+            txtMaLop.setText(tblSV.getValueAt(row, 2).toString());
         }
     }//GEN-LAST:event_tblSVMouseClicked
 
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
-        if (JOptionPane.showConfirmDialog(this, "Do you want to update?")==JOptionPane.NO_OPTION) {
-            return;
-        }
+
         try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            Connection connect = DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databaseName=DoAnLMT;user=sa;password=123");
-            String sql = "UPDATE SINH_VIEN set hoTen=?, diemToan=?,diemLy=?, diemHoa=? where mSSV = ?";
+            Connection connect = DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databaseName=QLSV;user=sa;password=123");
+            String sql = "UPDATE SINH_VIEN set hoTen=?, diemToan=?,diemLy=?, diemHoa=?, maLop =? where mSSV = ?";
             PreparedStatement ps = connect.prepareStatement(sql);
-            ps.setString(5, txtMSSV.getText());
-            ps.setString(1, txtHoTen.getText());
-            ps.setFloat(2, Float.parseFloat(txtDiemToan.getText()));
-            ps.setFloat(3, Float.parseFloat(txtDiemLy.getText()));
-            ps.setFloat(4, Float.parseFloat(txtDiemHoa.getText()));
+            ps.setString(6, txtMSSV.getText().trim());
+            ps.setString(1, txtHoTen.getText().trim());
+            ps.setFloat(2, Float.parseFloat(txtDiemToan.getText().trim()));
+            ps.setFloat(3, Float.parseFloat(txtDiemLy.getText().trim()));
+            ps.setFloat(4, Float.parseFloat(txtDiemHoa.getText().trim()));
+            ps.setString(5, txtMaLop.getText().trim());
             ps.executeUpdate();
             btnReloadActionPerformed(evt);
             JOptionPane.showMessageDialog(this, "Cập nhật thành công!");
+            ProcessCTR(false);
             ps.close();
             connect.close();
-            
 
         } catch (Exception e) {
-            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, e.getMessage());
         }
     }//GEN-LAST:event_btnSuaActionPerformed
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
-       if (JOptionPane.showConfirmDialog(this, "Do you want to delete?")==JOptionPane.NO_OPTION) {
+        if (JOptionPane.showConfirmDialog(this, "Xác nhận xóa sinh viên này?") == 0) {
+            try {
+                Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+                Connection connect = DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databaseName=QLSV;user=sa;password=123");
+                String sql = "delete from SINH_VIEN where mSSV = ?";
+                PreparedStatement ps = connect.prepareStatement(sql);
+                ps.setString(1, txtMSSV.getText().trim());
+                ps.executeUpdate();
+
+                btnReloadActionPerformed(evt);
+                JOptionPane.showMessageDialog(this, "Xóa thành công!");
+                ProcessCTR(false);
+                ps.close();
+                connect.close();
+
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, e.getMessage());
+            }
+        } else {
+            btnReloadActionPerformed(evt);
             return;
         }
-        try {
-            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            Connection connect = DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databaseName=DoAnLMT;user=sa;password=123");
-            String sql = "delete from SINH_VIEN where mSSV = ?";
-            PreparedStatement ps = connect.prepareStatement(sql);
-            ps.setString(1, txtMSSV.getText());
-            ps.executeUpdate();
-   
-            btnReloadActionPerformed(evt);
-            JOptionPane.showMessageDialog(this, "Xóa thành công!");
-            ps.close();
-            connect.close();
-            
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }//GEN-LAST:event_btnXoaActionPerformed
+
+    private void btnThoatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThoatActionPerformed
+        this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
+    }//GEN-LAST:event_btnThoatActionPerformed
+
+    private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
+
+    }//GEN-LAST:event_btnThemActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -363,6 +419,7 @@ public class AddStudents extends javax.swing.JFrame implements ActionListener {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTable tblSV;
@@ -371,42 +428,69 @@ public class AddStudents extends javax.swing.JFrame implements ActionListener {
     private javax.swing.JTextField txtDiemToan;
     private javax.swing.JTextField txtHoTen;
     private javax.swing.JTextField txtMSSV;
+    private javax.swing.JTextField txtMaLop;
     // End of variables declaration//GEN-END:variables
+
+    private void initTable() {
+        tblModel = new DefaultTableModel();
+        tblModel.setColumnIdentifiers(new String[]{"MSSV", "Họ Tên", "Mã lớp", "Điểm Toán", "Điểm Lý", "Điểm Hóa", "Điểm TB"});
+        tblSV.setModel(tblModel);
+    }
+
+    private void loadInfoSinhVien() {
+        try {
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            Connection connect = DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databaseName=QLSV;user=sa;password=123");
+
+            String sql = "select * from SINH_VIEN";
+            PreparedStatement p = connect.prepareStatement(sql);
+            ResultSet rs = p.executeQuery();
+            tblModel.setRowCount(0);
+            while (rs.next()) {
+                float dtb = (rs.getFloat("diemToan") + rs.getFloat("diemLy") + rs.getFloat("diemHoa")) / 3;
+                //
+                String[] row = new String[]{
+                    rs.getString("mSSV".trim()), rs.getString("hoTen").trim(), rs.getString("maLop").trim(), rs.getString("diemToan").trim(), rs.getString("diemLy").trim(), rs.getString("diemHoa").trim(), String.valueOf(dtb)
+
+                };
+                tblModel.addRow(row);
+            }
+            tblModel.fireTableDataChanged();
+            rs.close();
+            p.close();
+            connect.close();
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e.getMessage());
+            e.printStackTrace();
+        }
+    }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource().equals(btnThem)) {
             btnThem_Click();
-        } 
+        }
     }
 
-    public void btnThem_Click() {
+    private void btnThem_Click() {
         try {
             Student sv = new Student();
-            if (txtMSSV.getText().length() != 0 && txtHoTen.getText().length() != 0 && txtDiemHoa.getText().length() != 0 && txtDiemLy.getText().length() != 0 && txtDiemToan.getText().length() != 0) {
+            if (txtMSSV.getText().length() != 0 && txtHoTen.getText().length() != 0 && txtDiemHoa.getText().length() != 0 && txtDiemLy.getText().length() != 0 && txtDiemToan.getText().length() != 0 && txtMaLop.getText().length() != 0) {
                 sv.setMssv(txtMSSV.getText());
                 sv.setHoTen(txtHoTen.getText());
-                float diemToan = Float.parseFloat(txtDiemToan.getText());
-                float diemHoa = Float.parseFloat(txtDiemHoa.getText());
-                float diemLy = Float.parseFloat(txtDiemLy.getText());
+                float diemToan = Float.parseFloat(txtDiemToan.getText().trim());
+                float diemHoa = Float.parseFloat(txtDiemHoa.getText().trim());
+                float diemLy = Float.parseFloat(txtDiemLy.getText().trim());
+                sv.setMaLop(txtMaLop.getText());
 
                 if (diemHoa < 0.0 || diemLy < 0.0 || diemToan < 0.0 || diemHoa > 10.0 || diemLy > 10 || diemToan > 10.0) {
                     JOptionPane.showMessageDialog(rootPane, "Vui lòng nhập 0 <= điểm <= 10");
                     return;
-                }
-
-                if (txtDiemHoa.getText().equals("")) {
-                    sv.setDiemHoa(0f);
-                }
-                if (txtDiemLy.getText().equals("")) {
-                    sv.setDiemLy(0f);
-                }
-                if (txtDiemToan.getText().equals("")) {
-                    sv.setDiemToan(0f);
                 } else {
-                    sv.setDiemToan(Float.parseFloat(txtDiemToan.getText()));
-                    sv.setDiemLy(Float.parseFloat(txtDiemLy.getText()));
-                    sv.setDiemHoa(Float.parseFloat(txtDiemHoa.getText()));
+                    sv.setDiemToan(Float.parseFloat(txtDiemToan.getText().trim()));
+                    sv.setDiemLy(Float.parseFloat(txtDiemLy.getText().trim()));
+                    sv.setDiemHoa(Float.parseFloat(txtDiemHoa.getText().trim()));
                 }
                 ClientCtr ctr = new ClientCtr();
                 ctr.OpenSocket();
@@ -426,44 +510,6 @@ public class AddStudents extends javax.swing.JFrame implements ActionListener {
             JOptionPane.showMessageDialog(rootPane, "Không thể thêm!");
             e.printStackTrace();
         }
-    }
-
-
-    private void initTable() {
-        tblModel = new DefaultTableModel();
-        tblModel.setColumnIdentifiers(new String[]{"mSSV", "hoTen", "diemToan", "diemLy", "diemHoa"});
-        tblSV.setModel(tblModel);
-    }
-
-    private void loadInfoSinhVien() {
-        try {
-            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            Connection connect = DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databaseName=DoAnLMT;user=sa;password=123");
-
-            String sql = "select * from SINH_VIEN";
-            PreparedStatement p = connect.prepareStatement(sql);
-            ResultSet rs = p.executeQuery();
-            tblModel.setRowCount(0);
-            while (rs.next()) {
-                String[] row = new String[]{
-                    rs.getString("mSSV"), rs.getString("hoTen"), rs.getString("diemToan"), rs.getString("diemLy"), rs.getString("diemHoa")
-
-                };
-                tblModel.addRow(row);
-            }
-            tblModel.fireTableDataChanged();
-            rs.close();
-            p.close();
-            connect.close();
-
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, e.getMessage());
-            e.printStackTrace();
-        }
-    }
-
-    public void btnThoat_Click() {
-        System.exit(0);
     }
 
 }

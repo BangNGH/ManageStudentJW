@@ -36,7 +36,7 @@ public class ServerCtr {
             try {
                 Socket s = myServer.accept();
                 list.add(s);
-                executeThemSV(s);
+                execute(s);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -53,7 +53,7 @@ public class ServerCtr {
         }
     }
 
-    public void executeThemSV(Socket s) {
+    public void execute(Socket s) {
         try {
             Student sv = receiveStudent(s);
             if (dao.ThemSinhVien(sv)) {

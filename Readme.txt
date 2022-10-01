@@ -1,8 +1,20 @@
-update: 30/9
-	Thêm/xóa/sửa form sinh viên 
-	Load data table
-	tạo procdure đăng nhập
+update: 1/10
+	+excute các câu lệnh trong file SQLQuery.sql
+	+tất cả cấu hình TCP/IP cho SQL server mở port 1433
+	+tải jdbc4 tại link "https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&cad=rja&uact=8&ved=2ahUKEwjdxd7ik7_6AhXKxGEKHWjsAbYQFnoECAwQAQ&url=https%3A%2F%2Fosdn.net%2Fprojects%2Fsfnet_id2d%2Fdownloads%2Fjdbc%2520drivers%2Fsqljdbc4.jar%2F&usg=AOvVaw0L0mOZdJmnlP3c25CyiFKZ"
+	+Sau khi tải jdbc4.jar thực hiện add file jdbc4.jar vào thư viện cho project Client và Server để kết nối đến SQL server
+	+thực hiện add model Students cho Client và Server bằng cách clean and build project Entities sau đó add file Entities.jar vào libraries cho project client và server
+	+Run lần lượt file ServerRun và ClientRun để test bài
 
+*LƯU Ý:
+	+không đổi tên biến/Folder/Class đã có sẳn trong SQL server và các project đã có 
+	+Không push các phần còn bug lên brach master	
+	+Cấu hình tài khoản sa trong SQL server và dùng tài khoản và mk sa để đăng nhập
+	+Các class chứa dòng code sau: "Connection connect = DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databaseName=QLSV;user=sa;password=123");" 
+=> Thực hiển sửa password của user sa trong SQL server thành password của của mình đặt
+
+	
  *Việc cần làm: 
-	-Hiển thị kết quả server trả về gồm họ tên sinh viên, mã sinh viên và điểm trung bình của từng bạn lên màn hình
-	- Nhận dữ liệu từ client thực hiện mã hóa bằng thuật toán DES sai đó lưu vào sql và nhận thông số từ giao diện để đọc giải mã dữ liệu, sau đó tính điểm trung bình của từng bạn và gửi về cho client.
+	+Học cách cách sử dụng github và các câu lệch cơ bản dùng
+	+Chỉnh sửa readme file và push lên github để thử cách dùng git
+	+Push bài lên github phải commit message và note vào readme file

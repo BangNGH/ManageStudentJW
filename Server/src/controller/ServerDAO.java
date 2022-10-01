@@ -22,25 +22,25 @@ public class ServerDAO {
     public ServerDAO() {
          try {
            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");  
-           connect = DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databaseName=DoAnLMT;user=sa;password=123");
+           connect = DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databaseName=QLSV;user=sa;password=123");
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         }
     }
     
     public boolean ThemSinhVien(Student s) {
-        String sql = "INSERT INTO SINH_VIEN(mSSV, hoTen, diemToan, diemLy, diemHoa) values(?,?,?,?,?)";
+        String sql = "INSERT INTO SINH_VIEN(mSSV, hoTen, diemToan, diemLy, diemHoa, maLop) values(?,?,?,?,?,?)";
         try {
             PreparedStatement ps = connect.prepareStatement(sql);
-            ps.setString(1, s.getMssv());
-            ps.setString(2, s.getHoTen());
+            ps.setString(1, s.getMssv().trim());
+            ps.setString(2, s.getHoTen().trim());
             ps.setFloat(3, s.getDiemToan());
             ps.setFloat(4, s.getDiemLy());
             ps.setFloat(5, s.getDiemHoa());
+            ps.setString(6, s.getMaLop());
             ps.executeUpdate();
            
-           ps.close();
-           connect.close();
+           //ps.close();
             return true;
             
         } catch (Exception e) {

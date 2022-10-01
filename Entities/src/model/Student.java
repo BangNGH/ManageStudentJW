@@ -16,17 +16,27 @@ public class Student implements Serializable{
     private Float diemToan;
     private Float diemLy;
     private Float diemHoa;
+    private String maLop;
 
-    public Student() {
-    }
-
-    public Student(String mssv, String hoTen, Float diemToan, Float diemLy, Float diemHoa) {
+    public Student(String mssv, String hoTen, Float diemToan, Float diemLy, Float diemHoa, String maLop) {
         this.mssv = mssv;
         this.hoTen = hoTen;
         this.diemToan = diemToan;
         this.diemLy = diemLy;
         this.diemHoa = diemHoa;
+        this.maLop = maLop;
     }
+
+    public String getMaLop() {
+        return maLop;
+    }
+
+    public void setMaLop(String maLop) {
+        this.maLop = maLop;
+    }
+    public Student() {
+    }
+
 
     public String getMssv() {
         return mssv;
