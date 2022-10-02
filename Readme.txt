@@ -27,4 +27,4 @@ update: 1/10
 	- Thay thế các câu lệch select form where = PROCERDUCE
 	
 >>>>>>> 2c9e244d0749ab7b93603ce11cf420a4e4f9ac49
-Nguyễn Trung Thiên đã ở đây.
+Nguyễn Trung Thiên đã ở đây...bây giờ là pull từ githu về nhá!
