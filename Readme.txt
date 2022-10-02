@@ -31,3 +31,4 @@ Nguyễn Trung Thiên đã ở đây...bây giờ là pull từ githu về nhá!
 1234546789
 
 Dung đã push
+Dung đã pull
