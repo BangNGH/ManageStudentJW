@@ -4,13 +4,15 @@
  * and open the template in the editor.
  */
 package model;
+
 import java.io.Serializable;
 
 /**
  *
  * @author ADMIN
  */
-public class Student implements Serializable{
+public class Student implements Serializable {
+
     private String mssv;
     private String hoTen;
     private Float diemToan;
@@ -34,9 +36,9 @@ public class Student implements Serializable{
     public void setMaLop(String maLop) {
         this.maLop = maLop;
     }
+
     public Student() {
     }
-
 
     public String getMssv() {
         return mssv;
@@ -78,8 +80,4 @@ public class Student implements Serializable{
         this.diemHoa = diemHoa;
     }
 
-
-
-    
-    
 }

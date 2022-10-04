@@ -326,9 +326,9 @@ public class AddStudents extends javax.swing.JFrame implements ActionListener {
             PreparedStatement ps = connect.prepareStatement(sql);
             ps.setString(6, txtMSSV.getText().trim());
             ps.setString(1, txtHoTen.getText().trim());
-            ps.setFloat(2, Float.parseFloat(txtDiemToan.getText().trim()));
-            ps.setFloat(3, Float.parseFloat(txtDiemLy.getText().trim()));
-            ps.setFloat(4, Float.parseFloat(txtDiemHoa.getText().trim()));
+            ps.setString(2, (txtDiemToan.getText().trim()));
+            ps.setString(3, (txtDiemLy.getText().trim()));
+            ps.setString(4,(txtDiemHoa.getText().trim()));
             ps.setString(5, txtMaLop.getText().trim());
             ps.executeUpdate();
             btnReloadActionPerformed(evt);
@@ -448,9 +448,10 @@ public class AddStudents extends javax.swing.JFrame implements ActionListener {
             tblModel.setRowCount(0);
             while (rs.next()) {
                 float dtb = (rs.getFloat("diemToan") + rs.getFloat("diemLy") + rs.getFloat("diemHoa")) / 3;
+
                 //
                 String[] row = new String[]{
-                    rs.getString("mSSV".trim()), rs.getString("hoTen").trim(), rs.getString("maLop").trim(), rs.getString("diemToan").trim(), rs.getString("diemLy").trim(), rs.getString("diemHoa").trim(), String.valueOf(dtb)
+                    rs.getString("mSSV".trim()), rs.getString("hoTen").trim(), rs.getString("maLop").trim(), rs.getString("diemToan").trim(), rs.getString("diemLy").trim(), rs.getString("diemHoa").trim(), String.valueOf((float) Math.round(dtb * 100) / 100)
 
                 };
                 tblModel.addRow(row);
@@ -477,12 +478,12 @@ public class AddStudents extends javax.swing.JFrame implements ActionListener {
         try {
             Student sv = new Student();
             if (txtMSSV.getText().length() != 0 && txtHoTen.getText().length() != 0 && txtDiemHoa.getText().length() != 0 && txtDiemLy.getText().length() != 0 && txtDiemToan.getText().length() != 0 && txtMaLop.getText().length() != 0) {
-                sv.setMssv(txtMSSV.getText());
-                sv.setHoTen(txtHoTen.getText());
+                sv.setMssv(txtMSSV.getText().trim());
+                sv.setHoTen(txtHoTen.getText().trim());
                 float diemToan = Float.parseFloat(txtDiemToan.getText().trim());
                 float diemHoa = Float.parseFloat(txtDiemHoa.getText().trim());
                 float diemLy = Float.parseFloat(txtDiemLy.getText().trim());
-                sv.setMaLop(txtMaLop.getText());
+                sv.setMaLop(txtMaLop.getText().trim());
 
                 if (diemHoa < 0.0 || diemLy < 0.0 || diemToan < 0.0 || diemHoa > 10.0 || diemLy > 10 || diemToan > 10.0) {
                     JOptionPane.showMessageDialog(rootPane, "Vui lòng nhập 0 <= điểm <= 10");
@@ -497,7 +498,7 @@ public class AddStudents extends javax.swing.JFrame implements ActionListener {
                 ctr.sendStudent(sv);
                 String res = ctr.getResult();
                 if (res.equals("OK")) {
-                    JOptionPane.showMessageDialog(rootPane, "Thêm thành công");
+                    JOptionPane.showMessageDialog(rootPane, "Thêm thành công" );
                     loadInfoSinhVien();
                 } else {
                     JOptionPane.showMessageDialog(rootPane, "Không thể thêm!");
